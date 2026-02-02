@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,40 +6,100 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>First bootstrap project</title>
-    <!--Link your css file here-->
+
+    <!-- Link your css file here -->
     <link rel="stylesheet" href="style.css">
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <!--Link Google Font files here-->
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+          crossorigin="anonymous">
+
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <!--Bootstrap4 CDN -->
-    
+    <!-- Bootstrap 4 CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <!--Use this for Carousel-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <!--USe this for lightbox-->
+
+    <!-- Lightbox -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
-   
-
 </head>
-<nav class="navbar navbar-expand-md bg-brown navbar-light ">
-    <a class="navbar-brand"href="#">Me</a>
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a href="#" class="nav-link">Who</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Why</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Where</a></li>
-    </ul>
-</nav>
+
 <body>
-    <!-- <div class="container text-center">this div uses the container class</div>
-    <div class="container-fluid text-uppercase">this div uses the container-fluid class</div> -->
-    <div class="container-fluid bg-1 text-center">
-        <h3 class="margin">
-            WHO AM I?
-        </h3>
-            <img src="https://as2.ftcdn.net/v2/jpg/06/83/96/95/1000_F_683969565_gf3aSKdXi3NCKG3xwj3wHCJly7qlaqXY.jpg"class="img-fluid rounded-circle margin"style="display:inline"alt="Adventurer"width="350"height="450">
+
+<nav class="navbar navbar-expand-md bg-brown navbar-light">
+    <a class="navbar-brand" href="#">
+        <img src="./images/motivation.png" class="img-fluid" height="30" width="30">
+    </a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#my_menu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="my_menu">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="#" class="nav-link">Who</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Why</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Where</a></li>
+        </ul>
     </div>
+</nav>
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3>We were liars</h3>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4">
+            <img src="./images/Travel.jpg" class="img-fluid">
+        </div>
+        <div class="col-sm-8">
+            <span>
+                The seventh and the final book of the Harry Potter saga is an epic journey of three friends and their quest to save their world from the most evil wizard the world has ever known.
+            </span>
+        </div>
+    </div>
+</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">cool</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container-fluid bg-1 text-center">
+    <h3 class="margin">WHO AM I?</h3>
+    <img src="https://as2.ftcdn.net/v2/jpg/06/83/96/95/1000_F_683969565_gf3aSKdXi3NCKG3xwj3wHCJly7qlaqXY.jpg"
+         class="img-fluid rounded-circle margin"
+         style="display:inline"
+         alt="Adventurer"
+         width="350"
+         height="450">
+</div>
+
+<!-- Second Container -->
+<div class="container-fluid bg-4 text-center" id="divWhat">
+    <h3 class="margin">What Am I?</h3>
+    <p>What i am currently reading</p>
+
+    <!-- HERE -->
+    <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modal">
+        <span class="fas fa-search"></span> What am I currently reading?
+    </a>
+
+</div>
+
 </body>
+</html>
