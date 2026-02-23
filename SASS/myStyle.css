@@ -1,0 +1,49 @@
+body {
+  background: black;
+  color: white;
+  font-family: Helvetica, sans-serif, Arial;
+}
+
+button {
+  background-color: red;
+  display: inline-block;
+}
+
+.top {
+  background-image: linear-gradient(65deg, black, transparent), url("https://dkp0uzej5xex.cloudfront.net/wp-cont");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  font-family: Helvetica, sans-serif, Arial;
+}
+
+span {
+  display: inline;
+}
+
+table {
+  width: 100%;
+  background-color: black;
+}
+
+td {
+  width: 50%;
+}
+
+hr {
+  height: 6px;
+  background-color: #222222;
+  border-width: 0;
+}
+
+.center {
+  margin-top: 15%;
+  margin-left: 10%;
+  margin-bottom: 15%;
+  display: inline-block;
+  color: white;
+}
+
+span {
+  font-size: 60px;
+}/*# sourceMappingURL=myStyle.css.map */
