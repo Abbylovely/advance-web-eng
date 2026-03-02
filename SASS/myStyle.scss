@@ -1,50 +1,53 @@
-@import "variable";
-body {
-  background: $bgcolor;
-  color: $textcolor;
-  font-family: $fonts;
+@import './variable';
+@import './button';
+
+body{
+    background-color:$bgcolor;
+    margin: 0;
 }
 
-button {
-  background-color: $button-color;
-  display: $display_ib;
-}
-
-
+/* TOP SECTION */
 .top {
-  background-image: $bg-gradient;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
-  font-family: $fonts;
+    background-image: $bg-gradient;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family:$fonts;
+    padding: 20px;
+
+    span {
+        display: $display_i;
+    }
 }
 
-span {
-  display: $display_i;
-}
-
-table {
-  width: 100%;
-  background-color: $bgcolor;
-}
-
-td {
-  width: 50%;
-}
-
-hr {
-  height: 6px;
-  background-color: #222222;
-  border-width: 0;
-}
+/* CENTER SECTION */
 .center {
-  margin-top: 15%;
-  margin-left: 10%;
-  margin-bottom: 15%;
-  display: $display_ib;
-  color: $textcolor;
+    margin-top: 15%;
+    margin-left: 10%;
+    margin-bottom: 15%;
+    display: $display_ib;
+    color: $textcolor;
+
+    span{
+        font-size: 60px;
+        font-weight: bold;
+    }
 }
 
-span {
-  font-size: 60px;
+/* TABLE SECTION */
+table{
+    width:100%;
+    background-color: $bgcolor;
+
+    td{
+        width:50%;
+        padding: 30px;
+        color: $textcolor;
+    }
+
+    hr{
+        height:6px;
+        background-color:#222222;
+        border-width:0;
+    }
 }
