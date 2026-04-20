@@ -6,7 +6,7 @@ let total = 0;
 cart.forEach(item => total += item.price);
 
 // Add to Cart
-function addToCart(name, price){
+function add_to_cart(name, price){
     cart.push({name, price});
     total += price;
 
@@ -35,6 +35,7 @@ function updateCart(){
     let cartTotal = document.getElementById("cart-total");
 
     if(!cartList) return; // prevents error on other pages
+    cartList.innerHTML = "";
 cart.forEach((item, index) => {
 let li = document.createElement("li");
 
