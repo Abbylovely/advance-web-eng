@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<title>login</title>
+<link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+<h2>login</h2>
+<input type="email" id="email" placeholder="Email"><br><br>
+<input type="password" id="password" placeholder="Password"><br><br>
+
+<button onclick="login()">Login</button>
+
+<p>Don't have an account? <a href="signup.html">Signup</a></p>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+const supabase = window.supabase.createClient(
+  "https://ehegyaymdxqgtprmuiti.supabase.co",
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoZWd5YXltZHhxZ3Rwcm11aXRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMDAwMjUsImV4cCI6MjA5Mjg3NjAyNX0.D3M1GBr63kNZCVENQwSC54IfcuFxd2eNhFAl8Om-Oog"
+);
+</script>
+
+<script src="auth.js"></script>
+</body>
+</html>

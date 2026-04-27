@@ -1,3 +1,13 @@
+async function checkUser(){
+    const { data } = await supabase.auth.getUser();
+
+    if(!data.user){
+        alert("Please login first!");
+        window.location.href = "login.html";
+    }
+}
+
+checkUser();
 // Load cart from localStorage or empty
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let total = 0;
@@ -62,16 +72,32 @@ finalTotal.textContent = total;
 }
 
 // Place Order
-function placeOrder(event){
-event.preventDefault();
+async function placeOrder(event){
+    event.preventDefault();
 
-alert("Order placed successfully! 🎉");
+    const { data } = await supabase.auth.getUser();
 
-cart = [];
-total = 0;
+    let user = data.user;
 
-saveCart();
-updateCart();
+    if(!user){
+        alert("Please login first");
+        return;
+    }
 
-window.location.href = "index.html";
+    await supabase.from("orders").insert([
+        {
+            user_id: user.id,
+            items: JSON.stringify(cart),
+            total: total
+        }
+    ]);
+
+    alert("Order placed successfully! 🎉");
+
+    cart = [];
+    total = 0;
+    saveCart();
+    updateCart();
+
+    window.location.href = "index.html";
 }
