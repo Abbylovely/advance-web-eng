@@ -11,7 +11,7 @@ async function signup(){
         alert(error.message);
     } else {
         alert("Signup successful! 🎉");
-        window.location.href = "login.html";
+        window.location.href = "index.html";
     }
 }
 
