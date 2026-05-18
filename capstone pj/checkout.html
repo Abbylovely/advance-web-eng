@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,5 +28,72 @@ const supabase = window.supabase.createClient(
 </script>
 
 <script src="script.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Alstalia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Checkout</h1>
+
+    <section class="checkout-box">
+
+        <h2>Total Amount: $<span id="final-total">0</span></h2>
+
+        <form onsubmit="placeOrder(event)">
+
+            <input type="text" placeholder="Full Name" required>
+            <br><br>
+
+            <input type="text" placeholder="Address" required>
+            <br><br>
+
+            <input type="text" placeholder="Phone Number" required>
+            <br><br>
+
+            <button class="btn" type="submit">
+                Place Order
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <script>
+        const supabase = window.supabase.createClient(
+            "https://ehegyaymdxqgtprmuiti.supabase.co",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoZWd5YXltZHhxZ3Rwcm11aXRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMDAwMjUsImV4cCI6MjA5Mjg3NjAyNX0.D3M1GBr63kNZCVENQwSC54IfcuFxd2eNhFAl8Om-Oog"
+        );
+    </script>
+
+    <!-- Main Script -->
+    <script src="script.js"></script>
+
+    <!-- Show Total -->
+    <script>
+        let total = localStorage.getItem("finalTotal") || 0;
+
+        // If finalTotal not available, calculate from cart
+        if(total == 0){
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            total = cart.reduce((sum, item) => sum + item.price, 0);
+
+            localStorage.setItem("finalTotal", total);
+        }
+
+        document.getElementById("final-total").textContent = total;
+    </script>
+
 </body>
 </html>

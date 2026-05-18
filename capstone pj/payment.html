@@ -1,35 +1,59 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment-Alstalia</title>
+    <title>Payment - Alstalia</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>payment page</h1>
+
+    <h1>Payment Page</h1>
+
     <section class="checkout-box">
-        <h2>Total Amount:£<span id="pay-total">0</span></h2>
-        <h3>select payment method</h3>
+
+        <h2>
+            Total Amount: $
+            <span id="pay-total">0</span>
+        </h2>
+
+        <h3>Select Payment Method</h3>
+
         <div class="payment-buttons">
-            <button class="btn">
-                pay with paypal
-            </button>
-            <button class="btn">
-                pay with card
-            </button>
+
+            <button class="btn" onclick="pay('PayPal')">
+    Pay with PayPal
+</button>
+
+<button class="btn" onclick="pay('Card')">
+    Pay with Card
+</button>
+
         </div>
+
     </section>
+
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
     <script>
-const supabase = window.supabase.createClient(
-  "https://ehegyaymdxqgtprmuiti.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoZWd5YXltZHhxZ3Rwcm11aXRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMDAwMjUsImV4cCI6MjA5Mjg3NjAyNX0.D3M1GBr63kNZCVENQwSC54IfcuFxd2eNhFAl8Om-Oog"
-);
-</script>
-<script src="script.js"></script>
-<script>
-    var total=localStorage.getItem("finalTotal")
-    document.getElementById("pay-total").textContent=total;
-</script>
+        const supabase = window.supabase.createClient(
+            "https://ehegyaymdxqgtprmuiti.supabase.co",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoZWd5YXltZHhxZ3Rwcm11aXRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMDAwMjUsImV4cCI6MjA5Mjg3NjAyNX0.D3M1GBr63kNZCVENQwSC54IfcuFxd2eNhFAl8Om-Oog"
+        );
+    </script>
+
+    <!-- Main Script -->
+    <script src="script.js"></script>
+
+    <!-- Show Payment Total -->
+    <script>
+
+        let total = localStorage.getItem("finalTotal") || 0;
+
+        document.getElementById("pay-total").textContent = total;
+
+    </script>
 
 </body>
 </html>

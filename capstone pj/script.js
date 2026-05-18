@@ -1,8 +1,13 @@
 // ===============================
-// 🔐 Check if user is logged in (only for protected pages)
+// 🔐 Check if user is logged in
 // ===============================
 async function checkUser(){
-    const { data } = await supabase.auth.getUser();
+
+    const { data, error } = await supabase.auth.getUser();
+
+    if(error){
+        console.log(error);
+    }
 
     if(!data.user){
         alert("Please login first!");
@@ -10,7 +15,7 @@ async function checkUser(){
     }
 }
 
-// Run check ONLY on shop / checkout / payment pages
+// Run check ONLY on protected pages
 if(
     window.location.pathname.includes("shop") ||
     window.location.pathname.includes("checkout") ||
@@ -26,130 +31,229 @@ if(
 // Load cart from localStorage
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Calculate total safely
-let total = cart.reduce((sum, item) => sum + item.price, 0);
+// Calculate total
+let total = cart.reduce((sum, item) => {
+    return sum + Number(item.price);
+}, 0);
 
 // ===============================
-// ➕ Add to Cart
-// ===============================
-function add_to_Cart(name, price){
-    cart.push({ name, price });
-    total += price;
-
-    saveCart();
-    updateCart();
-}
-
-// ===============================
-// 💾 Save cart
+// 💾 SAVE CART
 // ===============================
 function saveCart(){
+
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    localStorage.setItem("finalTotal", total);
 }
 
 // ===============================
-// ❌ Remove item
+// ➕ ADD TO CART
+// ===============================
+function add_to_cart(name, price){
+
+    cart.push({
+        name: name,
+        price: Number(price)
+    });
+
+    total += Number(price);
+
+    saveCart();
+
+    updateCart();
+
+    console.log("Cart Updated:", cart);
+    console.log("Total:", total);
+}
+
+// ===============================
+// ❌ REMOVE ITEM
 // ===============================
 function removeItem(index){
-    total -= cart[index].price;
+
+    total -= Number(cart[index].price);
+
     cart.splice(index, 1);
 
     saveCart();
+
     updateCart();
 }
 
 // ===============================
-// 🔄 Update UI
+// 🔄 UPDATE CART UI
 // ===============================
 function updateCart(){
+
     let cartList = document.getElementById("cart-items");
+
     let cartCount = document.getElementById("cart-count");
+
     let cartTotal = document.getElementById("cart-total");
 
-    if(!cartList) return;
+    // Update cart items
+    if(cartList){
 
-    cartList.innerHTML = "";
+        cartList.innerHTML = "";
 
-    cart.forEach((item, index) => {
-        let li = document.createElement("li");
+        cart.forEach((item, index) => {
 
-        li.innerHTML = `
-        ${item.name} - $${item.price}
-        <button onclick="removeItem(${index})">❌</button>
-        `;
+            let li = document.createElement("li");
 
-        cartList.appendChild(li);
-    });
+            li.innerHTML = `
+                ${item.name} - $${item.price}
+                <button onclick="removeItem(${index})">❌</button>
+            `;
 
-    if(cartCount) cartCount.textContent = cart.length;
-    if(cartTotal) cartTotal.textContent = total;
-}
+            cartList.appendChild(li);
+        });
+    }
 
-// ===============================
-// 🚀 On Page Load
-// ===============================
-window.onload = function(){
-    updateCart();
+    // Update cart count
+    if(cartCount){
+        cartCount.textContent = cart.length;
+    }
 
-    // Show total in checkout page
+    // Update cart total
+    if(cartTotal){
+        cartTotal.textContent = total;
+    }
+
+    // Update checkout total
     let finalTotal = document.getElementById("final-total");
+
     if(finalTotal){
         finalTotal.textContent = total;
     }
+
+    // Update payment total
+    let payTotal = document.getElementById("pay-total");
+
+    if(payTotal){
+        payTotal.textContent = total;
+    }
 }
 
 // ===============================
-// 🧾 Checkout → Go to Payment Page
+// 🚀 PAGE LOAD
+// ===============================
+window.addEventListener("DOMContentLoaded", function(){
+
+    // Reload cart
+    cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Reload total
+    total = cart.reduce((sum, item) => {
+        return sum + Number(item.price);
+    }, 0);
+
+    updateCart();
+
+    console.log("Page Loaded");
+    console.log("Cart:", cart);
+    console.log("Total:", total);
+});
+
+// ===============================
+// 🧾 PLACE ORDER
 // ===============================
 function placeOrder(event){
+
     event.preventDefault();
 
+    // Reload latest cart
+    cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Recalculate total
+    total = cart.reduce((sum, item) => {
+        return sum + Number(item.price);
+    }, 0);
+
     if(cart.length === 0){
+
         alert("Cart is empty ❌");
+
         return;
     }
 
-    // Save data for payment page
-    localStorage.setItem("cart", JSON.stringify(cart));
+    // Save total
     localStorage.setItem("finalTotal", total);
 
-    // Go to payment page
+    console.log("Final Total Saved:", total);
+
+    // Redirect
     window.location.href = "payment.html";
 }
 
 // ===============================
-// 💳 Payment Function (call in payment.html)
+// 💳 PAYMENT
 // ===============================
 async function pay(method){
 
-    const { data } = await supabase.auth.getUser();
-    let user = data.user;
+    console.log("Payment button clicked");
 
-    if(!user){
-        alert("Please login first");
-        window.location.href = "login.html";
-        return;
-    }
+    try{
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let total = localStorage.getItem("finalTotal");
+        const { data, error } = await supabase.auth.getUser();
 
-    // Save order AFTER payment
-    await supabase.from("orders").insert([
-        {
-            user_id: user.id,
-            items: JSON.stringify(cart),
-            total: total,
-            payment_method: method
+        if(error){
+            console.log(error);
         }
-    ]);
 
-    alert("Payment successful via " + method + " 🎉");
+        let user = data.user;
 
-    // Clear cart
-    localStorage.removeItem("cart");
+        // TEMPORARY: allow payment without login
+        if(!user){
 
-    // Redirect
-    window.location.href = "index.html";
+            alert("No user logged in, saving as guest");
+
+        }
+
+        // Get cart
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Get total
+        let total = localStorage.getItem("finalTotal") || 0;
+
+        console.log("Cart:", cart);
+        console.log("Total:", total);
+
+        // Save to database
+        const { error: insertError } = await supabase
+        .from("orders")
+        .insert([
+            {
+                user_id: user ? user.id : null,
+                items: JSON.stringify(cart),
+                total: total,
+                payment_method: method
+            }
+        ]);
+
+        if(insertError){
+
+            console.log(insertError);
+
+            alert("Database error ❌");
+
+            return;
+        }
+
+        alert("Payment successful via " + method + " 🎉");
+
+        // Clear cart
+        localStorage.removeItem("cart");
+
+        localStorage.removeItem("finalTotal");
+
+        // Redirect
+        window.location.href = "index.html";
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        alert("Something went wrong ❌");
+    }
 }
-
