@@ -1,0 +1,22 @@
+body{
+    margin:0;
+    background-image:url("https://ichef.bbci.co.uk/news/480/cpsprodpb/D770/production/_110225155_c4a241aa-fefa-4c8c-9f6e-63ec36ae0d20-nc.png.webp");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+h1{
+  color: beige;
+  text-align: center;
+  margin: 100px;
+  font-size:75px;
+
+}
+h2{
+    color: beige;
+    text-align: center;
+}
+
+ .we_were_liars{
+    width: 20px;
+}
