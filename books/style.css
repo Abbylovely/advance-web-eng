@@ -4,6 +4,7 @@ body{
     background-size: cover;
     background-position: center;
     height: 100vh;
+    text-align: center;
 }
 h1{
   color: beige;
@@ -17,6 +18,33 @@ h2{
     text-align: center;
 }
 
- .we_were_liars{
-    width: 20px;
+#wwl img{
+    width: 350px;
+    height: 400px;
 }
+ #jinx img{
+    width: 250; 
+    height: 400;
+ }
+
+ #Thespiderwickchronicles img{
+    
+ }
+
+ .container{
+    display:flex;
+    justify-content: center;
+    gap:30px;
+ }
+
+ #description_box{
+    width: 600px;
+    margin: 20px auto;
+    font-size: 180px;
+    
+ }
+
+/* img{
+    width: 250;
+    height: 250;
+} */
